@@ -1,4 +1,4 @@
-disable_rubygems
+#disable_rubygems
 disable_system_gems
 
 gem "rails"
