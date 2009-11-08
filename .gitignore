@@ -1,3 +1,4 @@
+.idea
 bin
 bundler/gems
 log/*.log
