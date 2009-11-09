@@ -7,13 +7,8 @@ get "/" do
   erb :index
 end
 
-get "/eval" do
-  JSON.pretty_generate({
-    :foo => 'bar',
-    :baz => {
-      :number => 5,
-      :boolean => true,
-      :floater => 3.14
-    }
-  })
+post "/eval" do
+  Rhino::Context.open_std do |cxt, scope|
+    JSON.pretty_generate(cxt.eval(params[:source] || '', scope))
+  end
 end
