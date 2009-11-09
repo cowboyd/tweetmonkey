@@ -9,6 +9,7 @@ end
 
 post "/eval" do
     Rhino::Context.open_std do |cxt, scope|
+      cxt.instruction_limit = 100 * 1000
       scope['monkey'] = TweetMonkey.new(params[:username], params[:password])
       JSON.pretty_generate begin
         cxt.eval(params[:source], scope)

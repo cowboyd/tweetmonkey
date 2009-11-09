@@ -20,12 +20,16 @@
       width: 100%;
       height: 200px;
     }
+    
+    .invisible {
+      visibility: hidden;
+    }
 
   </style>
 </head>
 <body>
 <div id="page">
-  username: <input type="text" id="username"/> password: <input type="password" id="password"/> (I'm too lazy for OAuth, but I promise this isn't saved)
+  <img src="ajax-loader.gif" class="ajaxloader invisible"/> username: <input type="text" id="username"/> password: <input type="password" id="password"/> (I'm too lazy for OAuth, but I promise this isn't saved)
   <textarea id="script"></textarea>
   <button id="eval">Eval</button>(SHIFT-ENTER)
 
@@ -42,8 +46,10 @@
     var script = '#script'
     var result = '#result'
     var eval = '#eval'
+    var throbber = '.ajaxloader'
 
     $(button).click(function() {
+      $(throbber).toggleClass('invisible', false)
       $.ajax({
         url: 'eval',
         type: 'POST',
@@ -58,6 +64,9 @@
         },
         error: function(xhr, textStatus, errorThrown) {
           alert('error processing script s: ' + textStatus + ", err: " + errorThrown)
+        },
+        complete: function() {
+          $(throbber).toggleClass('invisible', true)
         }
       })
     })
