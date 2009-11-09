@@ -1,6 +1,6 @@
-== TweetMonkey
+=== TweetMonkey
 
 gem bundle
-script/server
+jruby tweetmonkey.rb
 
-http://localhost:3000/
+http://localhost:4567
