@@ -27,7 +27,7 @@
 <div id="page">
   username: <input type="text" id="username"/> password: <input type="password" id="password"/> (I'm too lazy for OAuth, but I promise this isn't saved)
   <textarea id="script"></textarea>
-  <button>Eval</button>
+  <button id="eval">Eval</button>(SHIFT-ENTER)
 
   <div id="result">
 
@@ -41,6 +41,7 @@
     var password = '#password'
     var script = '#script'
     var result = '#result'
+    var eval = '#eval'
 
     $(button).click(function() {
       $.ajax({
@@ -59,6 +60,12 @@
           alert('error processing script s: ' + textStatus + ", err: " + errorThrown)
         }
       })
+    })
+    $(script).keypress(function(e) {
+      if (e.which == 13 && e.shiftKey) {
+        e.preventDefault()
+        $(button).click()
+      }
     })
 
   })
