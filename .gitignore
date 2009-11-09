@@ -1,4 +1,4 @@
 .idea
 bin
-bundler/gems
+vendor/gems
 log/*.log
