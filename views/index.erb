@@ -25,6 +25,7 @@
 </head>
 <body>
 <div id="page">
+  username: <input type="text" id="username"/> password: <input type="password" id="password"/> (I'm too lazy for OAuth, but I promise this isn't saved)
   <textarea id="script"></textarea>
   <button>Eval</button>
 
@@ -36,6 +37,8 @@
 <script type="text/javascript">
   $(function () {
     var button = '#page button'
+    var username = '#username'
+    var password = '#password'
     var script = '#script'
     var result = '#result'
 
@@ -44,10 +47,12 @@
         url: 'eval',
         type: 'POST',
         data: {
+          username: $(username).val(),
+          password: $(password).val(),
           source: $(script).val()
         },
         success: function(data) {
-          $(result).html('<pre class="prettyprint lang-js">' + data + '</pre>')
+          $(result).html('<pre class="prettyprint lang-js"></pre>').find('pre').append(document.createTextNode(data))
           prettyPrint()
         },
         error: function(xhr, textStatus, errorThrown) {
