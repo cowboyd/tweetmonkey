@@ -8,11 +8,11 @@ get "/" do
 end
 
 post "/eval" do
-  Rhino::Context.open_std do |cxt, scope|
+  Rhino::Context.open do |cxt|
     cxt.instruction_limit = 100 * 1000
-    scope['monkey'] = TweetMonkey.new(params[:username], params[:password])
+    cxt['monkey'] = TweetMonkey.new(params[:username], params[:password])
     JSON.pretty_generate begin
-      cxt.eval(params[:source], scope)
+      cxt.eval(params[:source])
     rescue StandardError => e
       {:error => e.message}
     end
